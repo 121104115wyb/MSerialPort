@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kongqw.serialportlibrary.Device;
-import com.kongqw.serialportlibrary.SerialPort;
 import com.kongqw.serialportlibrary.SerialPortFinder;
 import com.kongqw.serialportlibrary.SerialPortManager;
 import com.kongqw.serialportlibrary.listener.OnOpenSerialPortListener;
@@ -26,78 +25,19 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity---";
-
-//    private SerialPortFinder mSerialPortFinder;
-//    private SerialPort mSerialPort;
+    private EditText editText;
+    private TextView connectPort, receiveData;
+    private boolean openSerialPort = false;
+    //逆变器命令
+    private String command = "20030FA00007018F";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-//        initWidget();
-//
-//        mSerialPortFinder = new SerialPortFinder();
-//        String[] entryValues = mSerialPortFinder.getAllDevicesPath();  // 得到所有设备文件地址的数组
-//        try {
-//            mSerialPort = new SerialPort(new File("/dev/ttyS1"), 115200, 0);
-//        } catch (IOException e) {
-//            System.out.println("找不到该设备文件");
-//            e.printStackTrace();
-//        }
-//
-//        final InputStream inputStream = mSerialPort.getInputStream();
-//
-//        /* 开启一个线程进行读取 */
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    byte[] buffer = new byte[1024];
-//                    int size = inputStream.read(buffer);
-//                    byte[] readBytes = new byte[size];
-//                    System.arraycopy(buffer, 0, readBytes, 0, size);
-//
-//                    System.out.println("received data => " + new String(readBytes));
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
     }
 
-//    private void initWidget() {
-//        Button button = findViewById(R.id.btn_send);
-//        button.setOnClickListener(this);
-//    }
-
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.btn_send:
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        String content = "Hello World";
-//                        byte[] bytes = content.getBytes();
-//                        OutputStream out = mSerialPort.getOutputStream();
-//                        try {
-//                            out.write(bytes);
-//                            out.flush();
-//                            out.close();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }).start();
-//                break;
-//        }
-//    }
-
-    EditText editText;
-    TextView connectPort, receiveData;
-    boolean openSerialPort = false;
 
     void initViews() {
         editText = findViewById(R.id.inputText);
@@ -171,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     public static byte[] hexToByteArray(String var0) {
